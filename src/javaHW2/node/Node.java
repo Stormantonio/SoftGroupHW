@@ -1,46 +1,66 @@
 package javaHW2.node;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+
 /**
- * Created by Asus on 02.02.2017.
+ * Created by Anton on 02.02.2017.
  */
 public class Node {
-    Node next;
-    int elem;
+    public Node next;
+    public int elem;
+
+    public Node(int elem) {
+        this.elem = elem;
+    }
+
+    public void display() {
+        System.out.print(elem + " ");
+    }
+
+    public static int isTrue(String s) {
+        return s.trim().length();
+    }
+
+    public static void main(String[] args) throws IOException {
+        LinkList linkList = new LinkList();
+        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+        int numb;
+        String sNumb;
+        System.out.println("Start enter integers! Press the space bar to stop the cycle");
+        while (true) {
+            sNumb = reader.readLine();
+            if (isTrue(sNumb) != sNumb.length()) {
+                linkList.insertFirstLink(Integer.parseInt(sNumb.trim()));
+                linkList.display();
+                return;
+            } else {
+                linkList.insertFirstLink(Integer.parseInt(sNumb));
+            }
+        }
+    }
 }
 
-class Main {
-    private Node head;
-    private Node tail;
+class LinkList {
+    public Node firstNode;
 
-    public void addFront(int elem) {
-        Node node = new Node();
-        node.elem = elem;
-        if (head == null) {
-            head = node;
-            tail = node;
-        } else {
-            node.next = head;
-            head = node;
-        }
+    LinkList() {
+        firstNode = null;
     }
 
-    public void printList(Node node) {
-        while (node != null) {
-            System.out.println(node.elem);
-            node = node.next;
-        }
+    public void insertFirstLink(int elem) {
+        Node newNode = new Node(elem);
+        newNode.next = firstNode;
+        firstNode = newNode;
     }
 
-    public static void main(String[] args) {
-        Node node = new Node();
-        Main m = new Main();
-        m.addFront(1);
-        m.addFront(7);
-        m.addFront(8);
-        m.addFront(10);
-        m.addFront(5);
-        m.addFront(4);
-
-        m.printList(node);
+    public void display() {
+        Node thisNode = firstNode;
+        System.out.print("Nods: ");
+        while (thisNode != null) {
+            thisNode.display();
+            thisNode = thisNode.next;
+        }
     }
 }

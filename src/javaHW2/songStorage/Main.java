@@ -21,7 +21,7 @@ public class Main {
 
     public static void main(String[] args) throws IOException {
         while (true) {
-            System.out.println("Enter the command: 1 - add song | 2 - sort by singer | 3 - sort by song | 4 - exit");
+            System.out.println("Enter the command: 1 - addNode song | 2 - sort by singer | 3 - sort by song | 4 - exit");
             switch (reader.readLine()) {
                 case "1":
                     addSong();

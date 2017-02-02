@@ -1,13 +1,11 @@
 package javaHW2.student;
 
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.Test;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
-
-import static org.junit.Assert.*;
 
 /**
  * Created by Anton on 31.01.2017.
@@ -45,34 +43,39 @@ public class VariationTest {
 
     static {
         STUDENT_1 = new Student(NAME_1, COURSE_1);
-        STUDENT_2 = new Student(NAME_2, COURSE_1);
+        STUDENT_2 = new Student(NAME_2, COURSE_2);
         STUDENT_3 = new Student(NAME_3, COURSE_1);
-        STUDENT_4 = new Student(NAME_4, COURSE_1);
-        STUDENT_5 = new Student(NAME_5, COURSE_1);
-        STUDENT_6 = new Student(NAME_6, COURSE_1);
+        STUDENT_4 = new Student(NAME_4, COURSE_3);
+        STUDENT_5 = new Student(NAME_5, COURSE_5);
+        STUDENT_6 = new Student(NAME_6, COURSE_4);
         STUDENT_7 = new Student(NAME_7, COURSE_1);
-        STUDENT_8 = new Student(NAME_8, COURSE_1);
+        STUDENT_8 = new Student(NAME_8, COURSE_5);
         STUDENT_9 = new Student(NAME_9, COURSE_1);
-        STUDENT_10 = new Student(NAME_10, COURSE_1);
-    }
-
-    @Before
-    public void setUp() throws Exception {
-        this.students.clear();
-        this.students.add(STUDENT_1);
-        this.students.add(STUDENT_2);
-        this.students.add(STUDENT_3);
-        this.students.add(STUDENT_4);
-        this.students.add(STUDENT_5);
-        this.students.add(STUDENT_6);
-        this.students.add(STUDENT_7);
-        this.students.add(STUDENT_8);
-        this.students.add(STUDENT_9);
-        this.students.add(STUDENT_10);
+        STUDENT_10 = new Student(NAME_10, COURSE_3);
     }
 
     @Test
     public void printStudents() throws Exception {
-        Assert.assertEquals(10, students.size());
+        int count = 0;
+        students.clear();
+        students.add(STUDENT_1);
+        students.add(STUDENT_2);
+        students.add(STUDENT_3);
+        students.add(STUDENT_4);
+        students.add(STUDENT_5);
+        students.add(STUDENT_6);
+        students.add(STUDENT_7);
+        students.add(STUDENT_8);
+        students.add(STUDENT_9);
+        students.add(STUDENT_10);
+        int course = COURSE_1;
+        for (Iterator it = students.iterator(); it.hasNext(); ) {
+            Student student = (Student) it.next();
+            if (student.getCourse() == course) {
+                System.out.println(student.getName());
+                count++;
+            }
+        }
+        Assert.assertEquals(4, count);
     }
 }

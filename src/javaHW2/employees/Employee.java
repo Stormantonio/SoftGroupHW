@@ -36,7 +36,7 @@ class Main {
 
     public static void main(String[] args) throws IOException {
         while (true) {
-            System.out.println("Enter command: 1 - add new employee | 2 - get employee by uuid | 3 - get all employees | 4 - exit");
+            System.out.println("Enter command: 1 - addNode new employee | 2 - get employee by uuid | 3 - get all employees | 4 - exit");
             String command = reader.readLine();
             switch (command) {
                 case "1":
