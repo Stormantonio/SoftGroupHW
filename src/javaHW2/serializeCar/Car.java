@@ -1,4 +1,4 @@
-package javaHW2;
+package javaHW2.serializeCar;
 
 
 import java.io.*;
@@ -32,7 +32,7 @@ class SerializeCar {
     }
 
     private void serialize(Car cfs) throws IOException {
-        FileOutputStream fos = new FileOutputStream("src" + getSeparator() + "javaHW2" + getSeparator() + "carInfo");
+        FileOutputStream fos = new FileOutputStream("src" + getSeparator() + "javaHW2" + getSeparator() + "serializeCar" + getSeparator() + "carInfo");
         ObjectOutputStream oos = new ObjectOutputStream(fos);
         oos.writeObject(cfs);
         oos.flush();
@@ -40,7 +40,7 @@ class SerializeCar {
     }
 
     private Car deserialize() throws IOException, ClassNotFoundException {
-        FileInputStream fis = new FileInputStream("src" + getSeparator() + "javaHW2" + getSeparator() + "carInfo");
+        FileInputStream fis = new FileInputStream("src" + getSeparator() + "javaHW2" + getSeparator() + "serializeCar" + getSeparator() + "carInfo");
         ObjectInputStream oin = new ObjectInputStream(fis);
         return (Car) oin.readObject();
     }

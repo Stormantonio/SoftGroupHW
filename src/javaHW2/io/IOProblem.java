@@ -1,4 +1,4 @@
-package javaHW2;
+package javaHW2.io;
 
 import java.io.*;
 
@@ -20,7 +20,7 @@ public class IOProblem {
     }
 
     private void saveInFile() throws IOException {
-        File file = new File("src" + getSeparator() + "javaHW2" + getSeparator() + "info");
+        File file = new File("src" + getSeparator() + "javaHW2" + getSeparator() + "io" + getSeparator() + "info");
         if (file.exists()) {
             file.delete();
         }
@@ -49,7 +49,7 @@ public class IOProblem {
     private void readFile() throws IOException {
         BufferedReader br = null;
         try {
-            br = new BufferedReader(new FileReader("src//javaHW2//info.txt"));
+            br = new BufferedReader(new FileReader("src" + getSeparator() + "javaHW2" + getSeparator() + "io" + getSeparator() + "info"));
             String result = br.readLine();
             System.out.println("Output of content to the console:" + "\n" + result);
         } catch (IOException e) {
