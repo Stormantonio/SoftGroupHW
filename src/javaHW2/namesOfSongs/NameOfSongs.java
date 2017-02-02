@@ -17,7 +17,7 @@ public class NameOfSongs {
         LinkedList<String> list = new LinkedList<>();
         BufferedReader br;
         try {
-            FileInputStream fis = new FileInputStream("E://JavaProgramming//SoftGroup//SGroup//src//javaHW2//namesOfSongs//songs.txt");
+            FileInputStream fis = new FileInputStream("src" + getSeparator() + "javaHW2" + getSeparator() + "namesOfSongs" + getSeparator() + "songs.txt");
             br = new BufferedReader(new InputStreamReader(fis, "CP1251"));
             String s;
             while ((s = br.readLine()) != null)
@@ -29,6 +29,10 @@ public class NameOfSongs {
         for (String text : list) {
             System.out.println(text);
         }
+    }
+
+    private static String getSeparator() {
+        return System.getProperty("file.separator");
     }
 
     private static final Comparator<String> comparator = new Comparator<String>() {

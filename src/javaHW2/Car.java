@@ -1,6 +1,5 @@
 package javaHW2;
 
-import onlyMine.TestSerializable;
 
 import java.io.*;
 import java.util.logging.Level;
@@ -48,7 +47,7 @@ class SerializeCar {
             serializeCar.serialize(car1);
             System.out.println(serializeCar.deserialize());
         } catch (IOException | ClassNotFoundException ex) {
-            Logger.getLogger(TestSerializable.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(SerializeCar.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 }

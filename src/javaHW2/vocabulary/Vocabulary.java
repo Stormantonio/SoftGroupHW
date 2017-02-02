@@ -37,11 +37,15 @@ public class Vocabulary {
         }
     }
 
+    private static String getSeparator() {
+        return System.getProperty("file.separator");
+    }
+
     private void readFile() throws IOException {
         BufferedReader br = null;
         String res;
         try {
-            FileInputStream fis = new FileInputStream("E://JavaProgramming//SoftGroup//SGroup//src//javaHW2//vocabulary//abc.txt");
+            FileInputStream fis = new FileInputStream("src" + getSeparator() + "javaHW2" + getSeparator() + "vocabulary" + getSeparator() + "abc.txt");
             br = new BufferedReader(new InputStreamReader(fis, "CP1251"));
             while ((res = br.readLine()) != null) {
                 String[] strings = res.split("\\s");
