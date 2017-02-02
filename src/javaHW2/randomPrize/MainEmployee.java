@@ -10,7 +10,10 @@ import java.io.InputStreamReader;
 
 /**
  * Created by Anton on 31.01.2017.
+ * Нужно сохранить имена и фамилии всех своих сотрудников в ArrayList.
+ * Каждый месяц, работник будет выбран случайным образом из этих записей, чтобы получить премию.
  */
+
 public class MainEmployee {
     private final static Storage EMPLOYEES = new ArrayEmployee();
 
@@ -18,9 +21,9 @@ public class MainEmployee {
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
         Employee e;
         while (true) {
-            System.out.println("Enter: 1 - new employer | 2 - list | 3 - day of salary | 4- exit");
+            System.out.println("Enter: 1 - new employer | 2 - list | 3 - day of salary | 4 - exit");
             String[] params = reader.readLine().trim().toLowerCase().split(" ");
-            String s = null;
+            String s;
 
             switch (params[0]) {
                 case "1":
@@ -46,6 +49,7 @@ public class MainEmployee {
             }
         }
     }
+
     private static void toConsole() {
         EMPLOYEES.getAll();
     }

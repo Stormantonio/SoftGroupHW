@@ -19,7 +19,6 @@ import static java.lang.Integer.parseInt;
 public class ArrayEmployee implements Storage {
     private List<Employee> employees = new ArrayList<>();
 
-
     @Override
     public void save(Employee employee) {
         if (!employees.contains(employee)) {
@@ -40,7 +39,7 @@ public class ArrayEmployee implements Storage {
 
     @Override
     public void dateOfSalary(String date) throws IOException {
-        if (employees.isEmpty()){
+        if (employees.isEmpty()) {
             System.out.println("There is no employees!");
             return;
         }

@@ -7,7 +7,10 @@ import java.util.LinkedList;
 
 /**
  * Created by Anton on 01.02.2017.
+ * В текстовом файле хранятся названия песен, каждая песня с новой строки.
+ * Нужно вывести в консоль отсортированные по алфавиту все песни из файла.
  */
+
 public class NameOfSongs {
     public static void main(String[] args) {
         readFile();
@@ -17,8 +20,8 @@ public class NameOfSongs {
         LinkedList<String> list = new LinkedList<>();
         BufferedReader br;
         try {
-            FileInputStream fis = new FileInputStream("src" + getSeparator() + "javaHW2" + getSeparator() + "namesOfSongs" + getSeparator() + "songs.txt");
-            br = new BufferedReader(new InputStreamReader(fis, "CP1251"));
+            FileInputStream fis = new FileInputStream("src" + getSeparator() + "javaHW2" + getSeparator() + "namesOfSongs" + getSeparator() + "song");
+            br = new BufferedReader(new InputStreamReader(fis, "UTF-8"));
             String s;
             while ((s = br.readLine()) != null)
                 list.add(s);

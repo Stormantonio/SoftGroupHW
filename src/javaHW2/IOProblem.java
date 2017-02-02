@@ -4,6 +4,8 @@ import java.io.*;
 
 /**
  * Created by Anton on 28.01.2017.
+ * 1.Пользователь вводит с консоли произвольный текст, мы должны этот текст записать в файл и потом прочитать из файла.
+ * Использовать буферизацию.
  */
 public class IOProblem {
     public static void main(String[] args) throws IOException {

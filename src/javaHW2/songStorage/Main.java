@@ -6,12 +6,17 @@ import java.util.*;
 /*
  *
  * Created by Anton on 01.02.2017.
+ * В текстовом файле хранятся список песен, каждая песня из новой строки, данные о песне разделены слешем:
+ * Название песни/исполнитель/рейтинг песни
+ * Название песни/исполнитель/рейтинг песни
+ * …
+ * Создайте класс Song с требуемыми полями. Отсортируйте и выведите в консоль песни из файла по названию и по исполнителю.
  *
  */
 
 public class Main {
     private static BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-    private static File file = new File("src" + getSeparator() + "javaHW2" + getSeparator() + "songStorage" + getSeparator() + "songs.txt");
+    private static File file = new File("src" + getSeparator() + "javaHW2" + getSeparator() + "songStorage" + getSeparator() + "song");
     private static String result = "";
 
     public static void main(String[] args) throws IOException {
@@ -94,7 +99,7 @@ public class Main {
     private static void readFile(TreeSet<Song> set) {
         BufferedReader br;
         try {
-            FileInputStream fis = new FileInputStream("src" + getSeparator() + "javaHW2" + getSeparator() + "songStorage" + getSeparator() + "songs.txt");
+            FileInputStream fis = new FileInputStream("src" + getSeparator() + "javaHW2" + getSeparator() + "songStorage" + getSeparator() + "song");
             br = new BufferedReader(new InputStreamReader(fis, "UTF-8"));
             String s;
             while ((s = br.readLine()) != null) {

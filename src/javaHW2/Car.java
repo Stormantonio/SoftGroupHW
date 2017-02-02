@@ -7,6 +7,7 @@ import java.util.logging.Logger;
 
 /**
  * Created by Anton on 29.01.2017.
+ * Создать класс “машина” с примитивными и ссылочными полями. Сериализовать и десериализовать этот объект.
  */
 public class Car implements Serializable {
     private String brand;
@@ -34,7 +35,7 @@ class SerializeCar {
         oos.close();
     }
 
-    public Car deserialize() throws IOException, ClassNotFoundException {
+    private Car deserialize() throws IOException, ClassNotFoundException {
         FileInputStream fis = new FileInputStream("src//javaHW2//CarInfo.txt");
         ObjectInputStream oin = new ObjectInputStream(fis);
         return (Car) oin.readObject();

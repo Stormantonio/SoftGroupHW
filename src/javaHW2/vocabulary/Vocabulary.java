@@ -8,6 +8,13 @@ import java.util.Set;
 
 /**
  * Created by Anton on 01.02.2017.
+ * Есть текстовый файл в котором хранятся перевод слов для словаря.
+ * Содержимое файла:
+ * white белый
+ * black черный
+ * red красный
+ * …
+ * Реализовать метод который будет принимать на вход слово на английском а возвращать результат перевода на русском.
  */
 
 public class Vocabulary {
@@ -45,8 +52,8 @@ public class Vocabulary {
         BufferedReader br = null;
         String res;
         try {
-            FileInputStream fis = new FileInputStream("src" + getSeparator() + "javaHW2" + getSeparator() + "vocabulary" + getSeparator() + "abc.txt");
-            br = new BufferedReader(new InputStreamReader(fis, "CP1251"));
+            FileInputStream fis = new FileInputStream("src" + getSeparator() + "javaHW2" + getSeparator() + "vocabulary" + getSeparator() + "abc");
+            br = new BufferedReader(new InputStreamReader(fis, "UTF-8"));
             while ((res = br.readLine()) != null) {
                 String[] strings = res.split("\\s");
                 map.put(strings[0], strings[1]);
@@ -80,6 +87,6 @@ public class Vocabulary {
                 return;
             }
         }
-        System.out.println("There is no thi word in the vocabulary!");
+        System.out.println("There is no this word in the vocabulary!");
     }
 }

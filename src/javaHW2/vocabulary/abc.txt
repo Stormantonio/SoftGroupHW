@@ -1,9 +1,0 @@
-red красный
-black черный
-grey серый
-green зеленый
-yellow желтый
-spring весна
-summer лето
-autumn осень
-winter зима
