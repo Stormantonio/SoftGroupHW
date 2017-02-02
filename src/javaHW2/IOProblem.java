@@ -20,7 +20,7 @@ public class IOProblem {
     }
 
     private void saveInFile() throws IOException {
-        File file = new File("src" + getSeparator() + "javaHW2" + getSeparator() + "info.txt");
+        File file = new File("src" + getSeparator() + "javaHW2" + getSeparator() + "info");
         if (file.exists()) {
             file.delete();
         }

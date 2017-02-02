@@ -27,8 +27,12 @@ public class Car implements Serializable {
 }
 
 class SerializeCar {
+    private String getSeparator() {
+        return System.getProperty("file.separator");
+    }
+
     private void serialize(Car cfs) throws IOException {
-        FileOutputStream fos = new FileOutputStream("src//javaHW2//CarInfo.txt");
+        FileOutputStream fos = new FileOutputStream("src" + getSeparator() + "javaHW2" + getSeparator() + "carInfo");
         ObjectOutputStream oos = new ObjectOutputStream(fos);
         oos.writeObject(cfs);
         oos.flush();
@@ -36,7 +40,7 @@ class SerializeCar {
     }
 
     private Car deserialize() throws IOException, ClassNotFoundException {
-        FileInputStream fis = new FileInputStream("src//javaHW2//CarInfo.txt");
+        FileInputStream fis = new FileInputStream("src" + getSeparator() + "javaHW2" + getSeparator() + "carInfo");
         ObjectInputStream oin = new ObjectInputStream(fis);
         return (Car) oin.readObject();
     }
