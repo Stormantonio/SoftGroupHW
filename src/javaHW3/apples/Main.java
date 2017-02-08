@@ -6,6 +6,10 @@ import java.util.concurrent.locks.ReentrantLock;
 
 /**
  * Created by Anton on 07.02.2017.
+ * Есть склад, на котором хранятся яблока (сорт, количество). Поставщик периодически привозит на склад яблока.
+ * Два магазина продают яблока из этого склада. Каждый из магазинов организовывает доставку в свой магазин.
+ * Когда на складе заканчивается товар, магазины простаивают. Первый магазин продает в 2 раза больше яблок,
+ * чем второй соответственно в два раза чаще обращается на склад. Организовать работу магазинов.
  */
 public class Main {
     public static void main(String[] args) {
@@ -15,7 +19,7 @@ public class Main {
 
 }
 
-class Shop extends AppleStock{
+class Shop extends AppleStock {
     public int capacity = 0;
     ReentrantLock reentrantLock;
     Condition condition;
@@ -98,7 +102,7 @@ class AppleStock {
 
     // дописать, если какой-то сорт заканчивается...
 
-    public void stock(){
+    public void stock() {
         if (stockCapacity < 100) {
             stockCapacity = 500;
             System.out.println("Новый завоз на склад. " + stockCapacity + " кг яблук");
