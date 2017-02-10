@@ -7,6 +7,7 @@ import java.util.concurrent.CountDownLatch;
  * В автосалоне аукцион.
  * Условием начала аукциона является наличие 5 автомобилей в салоне, также 10 покупателей возле магазина.
  */
+
 public class MyAuction {
     private static final CountDownLatch START = new CountDownLatch(17);
     private static int count = 0;

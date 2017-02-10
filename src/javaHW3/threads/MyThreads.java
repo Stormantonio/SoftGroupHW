@@ -3,8 +3,12 @@ package javaHW3.threads;
 import java.util.concurrent.Phaser;
 
 /**
- * Created by Asus on 07.02.2017.
+ * Created by Anton on 07.02.2017.
+ * Стартует первый поток(1), после завершения выполнения первого потока стартуют одновременно два потока(2 и 3).
+ * После завершения потоков 2 и 3(в зависимости от того кто завершит свое выполнение последний) стартует 4 поток.
+ * Время выполнения каждого потока каждый раз разное
  */
+
 public class MyThreads {
     private static int i = 1;
     private static int count = 0;

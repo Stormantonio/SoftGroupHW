@@ -1,6 +1,7 @@
 package javaHW3.apples;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.ReentrantLock;
 
@@ -11,127 +12,186 @@ import java.util.concurrent.locks.ReentrantLock;
  * Когда на складе заканчивается товар, магазины простаивают. Первый магазин продает в 2 раза больше яблок,
  * чем второй соответственно в два раза чаще обращается на склад. Организовать работу магазинов.
  */
+
 public class Main {
     public static void main(String[] args) {
         Shop shop1 = new Shop(1);
         Shop shop2 = new Shop(2);
+        Thread tpShop1 = new Thread(new ShopPurchase(shop1));
+        tpShop1.setPriority(1);
+        tpShop1.start();
+        Thread tsShop1 = new Thread(new ShopSale(shop1));
+        tsShop1.setPriority(1);
+        tsShop1.start();
+        Thread tpShop2 = new Thread(new ShopPurchase(shop2));
+        tpShop2.setPriority(10);
+        tpShop2.start();
+        Thread tsShop2 = new Thread(new ShopSale(shop2));
+        tsShop2.setPriority(10);
+        tsShop2.start();
     }
 
-}
+    private static class Shop extends AppleStock {
+        private static int capacity = 0;
+        private ReentrantLock reentrantLock;
+        private Condition condition;
+        int number;
 
-class Shop extends AppleStock {
-    public int capacity = 0;
-    ReentrantLock reentrantLock;
-    Condition condition;
-    private int number;
+        Shop(int number) {
+            this.reentrantLock = new ReentrantLock();
+            this.condition = reentrantLock.newCondition();
+            this.number = number;
+        }
 
-    public Shop(int number) {
-        this.reentrantLock = new ReentrantLock();
-        this.condition = reentrantLock.newCondition();
-        this.number = number;
+        int getNumber() {
+            return number;
+        }
 
-    }
+        void someMethod() {
+            numberElem = (int) (Math.random() * 5 + 0);
+            int val = (int) (Math.random() * 130 + 60);
 
-    public int getNumber() {
-        return number;
-    }
-
-    public void bringApples() throws InterruptedException {
-        try {
-            reentrantLock.lock();
-            if (capacity == 0) {
-                System.out.println("Простой магазина №" + getNumber());
-                condition.await();
+            if (apples1.get(numberElem).getValue() >= val) {
+                apples1.get(numberElem).setValue(apples1.get(numberElem).getValue() - val);
+                buy = val;
+                stockCapacity -= buy;
+                capacity += buy;
+                System.out.println("Магазин № " + getNumber() + ": новый завоз: " + buy + " кг яблок " + apples1.get(numberElem).getSort());
+                System.out.println("На складе " + stockCapacity + " кг яблок");
+            } else if (apples1.get(numberElem).getValue() < val && apples1.get(numberElem).getValue() != 0) {
+                buy = apples1.get(numberElem).getValue();
+                apples1.get(numberElem).setValue(0);
+                stockCapacity -= buy;
+                capacity += buy;
+                System.out.println("Магазин № " + getNumber() + ": новый завоз: " + buy + " кг яблок " + apples1.get(numberElem).getSort());
+                System.out.println("Яблоки сорта " + apples1.get(numberElem).getSort() + " закночились на складе!");
+                System.out.println("На складе " + stockCapacity + " кг яблок");
+            } else {
+                System.out.println("Яблок сорта " + apples1.get(numberElem).getSort() + " пока нет на складе!");
             }
-            int value = (int) (Math.random() * 10) + 1;
-            stockCapacity -= value;
-            stock();
-            capacity += value;
-            System.out.println("Магазин № " + getNumber() + ": новый завоз - " + value + " кг яблук. Итого: " + capacity + " кг яблук");
-            condition.signalAll();
-        } finally {
-            reentrantLock.unlock();
+        }
+
+        void bringApples() throws InterruptedException {
+            try {
+                reentrantLock.lock();
+                while (stockCapacity == 0) {
+                    System.out.println("Склад пуст!");
+                    System.out.println("Простой магазинов...");
+                    Thread.sleep(3000);
+                    System.out.println("Новый завоз товара на склад...");
+                    addApples();
+                    stockCapacity = 650;
+                }
+                someMethod();
+                condition.signalAll();
+            } finally {
+                reentrantLock.unlock();
+            }
+        }
+
+        void sellApples() throws InterruptedException {
+            try {
+                reentrantLock.lock();
+                int val = (int) (Math.random() * 130 + 60);
+                if (val <= capacity) {
+                    capacity -= val;
+                    System.out.println("Магазин № " + getNumber() + ": продано " + val + " кг яблок сорта " + getAppleSort());
+                } else if (val > capacity && capacity != 0) {
+                    System.out.println("Магазин № " + getNumber() + ": продано " + capacity + " кг яблок сорта " + getAppleSort() + ". В магазине нету яблок сорта " + getAppleSort() + ".");
+                    capacity = 0;
+                } else {
+                    condition.await();
+                }
+                condition.signalAll();
+            } finally {
+                reentrantLock.unlock();
+            }
         }
     }
 
-    public void sellApples(int coef) throws InterruptedException {
-        try {
-            reentrantLock.lock();
-            if (capacity == 0) {
-                System.out.println("Простой магазина №" + getNumber());
-                condition.await();
+    private static class ShopPurchase implements Runnable {
+        private Shop shop;
+
+        ShopPurchase(Shop shop) {
+            this.shop = shop;
+        }
+
+        @Override
+        public void run() {
+            try {
+                for (int i = 0; i < 20; i++) {
+                    shop.bringApples();
+                    Thread.sleep(3000 * shop.getNumber());
+                }
+            } catch (InterruptedException ignored) {
             }
-            int value = (int) (Math.random() * 10 * coef) + 1;
-            if (value <= capacity) {
-                capacity -= value;
-                System.out.println("Магазин № " + getNumber() + ": продано " + capacity);
-            }
-            System.out.println("Магазин № " + getNumber() + ": продано " + capacity + ". В магазине нету яблок.");
-            capacity = 0;
-            condition.signalAll();
-        } finally {
-            reentrantLock.unlock();
         }
     }
-}
 
-class AppleStock {
-    int stockCapacity = 500;
-    ReentrantLock stockReentrantLock;
-    Condition stockCondition;
+    private static class ShopSale implements Runnable {
+        private Shop shop;
 
-    ArrayList<Aplles> aplles = new ArrayList<>();
+        ShopSale(Shop shop) {
+            this.shop = shop;
+        }
 
-    public AppleStock() {
-        this.stockReentrantLock = new ReentrantLock();
-        this.stockCondition = stockReentrantLock.newCondition();
-    }
-
-    public void ApplesArray() {
-        aplles.add(new Aplles("ГРУШОВКА МОСКОВСКАЯ", 500));
-        aplles.add(new Aplles("КВИНТИ", 500));
-        aplles.add(new Aplles("МАНТЕТ", 500));
-        aplles.add(new Aplles("АНТОНОВКА", 500));
-        aplles.add(new Aplles("МАКИНТОШ", 500));
-        aplles.add(new Aplles("СПАРТАК", 500));
-        aplles.add(new Aplles("МЕДУНИЦА ЗИМНЯЯ", 500));
-        aplles.add(new Aplles("РИХАРД", 500));
-        aplles.add(new Aplles("КУТУЗОВЕЦ", 500));
-        aplles.add(new Aplles("СИНАП", 500));
-    }
-
-    // дописать, если какой-то сорт заканчивается...
-
-    public void stock() {
-        if (stockCapacity < 100) {
-            stockCapacity = 500;
-            System.out.println("Новый завоз на склад. " + stockCapacity + " кг яблук");
+        @Override
+        public void run() {
+            try {
+                for (int i = 0; i < 20; i++) {
+                    shop.sellApples();
+                    Thread.sleep(3000 / shop.getNumber());
+                }
+            } catch (InterruptedException ignored) {
+            }
         }
     }
-}
 
-class Aplles {
-    String sort;
-    int value;
+    static class AppleStock {
+        static int stockCapacity = 650;
+        static int buy = 0;
+        static int numberElem = 0;
+        static List<Apples> apples1 = new ArrayList<>();
 
-    public Aplles(String sort, int value) {
-        this.sort = sort;
-        this.value = value;
+        static {
+            apples1.add(new Apples("ГРУШОВКА МОСКОВСКАЯ", 130));
+            apples1.add(new Apples("КВИНТИ", 130));
+            apples1.add(new Apples("МАНТЕТ", 130));
+            apples1.add(new Apples("АНТОНОВКА", 130));
+            apples1.add(new Apples("МАКИНТОШ", 130));
+        }
+
+        static void addApples() {
+            for (Apples a : apples1) {
+                a.setValue(130);
+            }
+        }
+
+        String getAppleSort() {
+
+            return apples1.get(numberElem).getSort();
+        }
     }
 
-    public String getSort() {
-        return sort;
-    }
+    private static class Apples {
+        private String sort;
+        private int value;
 
-    public void setSort(String sort) {
-        this.sort = sort;
-    }
+        Apples(String sort, int value) {
+            this.sort = sort;
+            this.value = value;
+        }
 
-    public int getValue() {
-        return value;
-    }
+        String getSort() {
+            return sort;
+        }
 
-    public void setValue(int value) {
-        this.value = value;
+        int getValue() {
+            return value;
+        }
+
+        void setValue(int value) {
+            this.value = value;
+        }
     }
 }
