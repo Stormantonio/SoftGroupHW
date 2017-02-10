@@ -51,23 +51,23 @@ public class Main {
             numberElem = (int) (Math.random() * 5 + 0);
             int val = (int) (Math.random() * 130 + 60);
 
-            if (apples1.get(numberElem).getValue() >= val) {
-                apples1.get(numberElem).setValue(apples1.get(numberElem).getValue() - val);
+            if (apples.get(numberElem).getValue() >= val) {
+                apples.get(numberElem).setValue(apples.get(numberElem).getValue() - val);
                 buy = val;
                 stockCapacity -= buy;
                 capacity += buy;
-                System.out.println("Магазин № " + getNumber() + ": новый завоз: " + buy + " кг яблок " + apples1.get(numberElem).getSort());
+                System.out.println("Магазин № " + getNumber() + ": новый завоз: " + buy + " кг яблок " + apples.get(numberElem).getSort());
                 System.out.println("На складе " + stockCapacity + " кг яблок");
-            } else if (apples1.get(numberElem).getValue() < val && apples1.get(numberElem).getValue() != 0) {
-                buy = apples1.get(numberElem).getValue();
-                apples1.get(numberElem).setValue(0);
+            } else if (apples.get(numberElem).getValue() < val && apples.get(numberElem).getValue() != 0) {
+                buy = apples.get(numberElem).getValue();
+                apples.get(numberElem).setValue(0);
                 stockCapacity -= buy;
                 capacity += buy;
-                System.out.println("Магазин № " + getNumber() + ": новый завоз: " + buy + " кг яблок " + apples1.get(numberElem).getSort());
-                System.out.println("Яблоки сорта " + apples1.get(numberElem).getSort() + " закночились на складе!");
+                System.out.println("Магазин № " + getNumber() + ": новый завоз: " + buy + " кг яблок " + apples.get(numberElem).getSort());
+                System.out.println("Яблоки сорта " + apples.get(numberElem).getSort() + " закночились на складе!");
                 System.out.println("На складе " + stockCapacity + " кг яблок");
             } else {
-                System.out.println("Яблок сорта " + apples1.get(numberElem).getSort() + " пока нет на складе!");
+                System.out.println("Яблок сорта " + apples.get(numberElem).getSort() + " пока нет на складе!");
             }
         }
 
@@ -151,25 +151,25 @@ public class Main {
         static int stockCapacity = 650;
         static int buy = 0;
         static int numberElem = 0;
-        static List<Apples> apples1 = new ArrayList<>();
+        static List<Apples> apples = new ArrayList<>();
 
         static {
-            apples1.add(new Apples("ГРУШОВКА МОСКОВСКАЯ", 130));
-            apples1.add(new Apples("КВИНТИ", 130));
-            apples1.add(new Apples("МАНТЕТ", 130));
-            apples1.add(new Apples("АНТОНОВКА", 130));
-            apples1.add(new Apples("МАКИНТОШ", 130));
+            apples.add(new Apples("ГРУШОВКА МОСКОВСКАЯ", 130));
+            apples.add(new Apples("КВИНТИ", 130));
+            apples.add(new Apples("МАНТЕТ", 130));
+            apples.add(new Apples("АНТОНОВКА", 130));
+            apples.add(new Apples("МАКИНТОШ", 130));
         }
 
         static void addApples() {
-            for (Apples a : apples1) {
+            for (Apples a : apples) {
                 a.setValue(130);
             }
         }
 
         String getAppleSort() {
 
-            return apples1.get(numberElem).getSort();
+            return apples.get(numberElem).getSort();
         }
     }
 
